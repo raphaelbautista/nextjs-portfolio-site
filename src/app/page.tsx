@@ -2,11 +2,6 @@
 import Header from "@/components/Header";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
-import {
-  EnvelopeIcon,
-  CodeBracketIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
 
