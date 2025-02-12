@@ -8,6 +8,9 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
+import { SocialIcon } from "react-social-icons";
+
+const MotionSocialIcon = motion(SocialIcon);
 
 // Animation variants
 const containerVariants = {
@@ -29,7 +32,7 @@ const RotatingTypewriter = () => {
   const roles = [
     "Systems Administrator",
     "DevOps Enthusiast",
-    "Aspiring Developer",
+    "Web Development",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -179,10 +182,10 @@ export default function Home() {
         id="hero"
         className="h-screen flex items-center relative overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto px-4">
+        <div className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto px-4 lg:px-8">
           <motion.div
             style={{ y: y1 }}
-            className="w-full md:w-1/2 flex justify-center relative z-10"
+            className="w-full lg:w-1/2 flex justify-center relative z-10"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -190,13 +193,13 @@ export default function Home() {
             <img
               src="avatar.png"
               alt="Raphael Bautista"
-              className="w-64 h-64 md:w-96 md:h-96 rounded-full object-cover border-4 border-emerald-500 shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="w-64 h-64 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-emerald-500 shadow-xl hover:shadow-2xl transition-all duration-300"
             />
           </motion.div>
 
           <motion.div
             style={{ y: y2 }}
-            className="w-full md:w-1/2 flex flex-col justify-center text-left mt-8 md:mt-0 space-y-6 relative z-20"
+            className="w-full lg:w-1/2 flex flex-col justify-center text-left mt-8 lg:mt-0 space-y-6 relative z-20"
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
           >
@@ -206,10 +209,56 @@ export default function Home() {
             <div className="font-body text-xl text-zinc-600 dark:text-zinc-400 font-medium">
               <RotatingTypewriter />
             </div>
+            <div className="flex space-x-4 mt-4">
+              <MotionSocialIcon
+                href="https://www.linkedin.com/in/raphaelbautista08/" // Replace with your actual LinkedIn profile URL
+                target="_blank"
+                aria-label="LinkedIn Profile"
+                network="linkedin"
+                bgColor="#CBD5E0"
+                fgColor="#4A5568"
+                style={{ height: 35, width: 35 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              />
+              <MotionSocialIcon
+                href="https://www.instagram.com/raphaelbautista/" // Replace with your actual Instagram profile URL
+                target="_blank"
+                aria-label="Instagram Profile"
+                network="instagram"
+                bgColor="#CBD5E0"
+                fgColor="#4A5568"
+                style={{ height: 35, width: 35 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              />
+              <MotionSocialIcon
+                href="https://www.facebook.com/raphael.epb/" // Replace with your actual Facebook profile URL
+                target="_blank"
+                aria-label="Facebook Profile"
+                network="facebook"
+                bgColor="#CBD5E0"
+                fgColor="#4A5568"
+                style={{ height: 35, width: 35 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              />
+              <MotionSocialIcon
+                href="https://www.tiktok.com/@aimeph_" // Replace with your actual TikTok profile URL
+                target="_blank"
+                aria-label="TikTok Profile"
+                network="tiktok"
+                bgColor="#CBD5E0"
+                fgColor="#4A5568"
+                style={{ height: 35, width: 35 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              />
+            </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-emerald-500 text-white px-8 py-3 rounded-lg w-fit shadow-md hover:bg-emerald-600 transition-colors"
+              className="bg-emerald-500 text-white px-8 py-3 rounded-lg w-fit shadow-md hover:bg-emerald-600 transition-colors mt-6"
             >
               View My Work
             </motion.button>
@@ -224,7 +273,7 @@ export default function Home() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <motion.h2
             variants={itemVariants}
             className="text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-12"
@@ -250,7 +299,7 @@ export default function Home() {
 
       {/* Roadmap Section */}
       <section id="roadmap" className="min-h-screen py-20 relative">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <h2 className="text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-12">
             Development Roadmap
           </h2>
@@ -291,11 +340,11 @@ export default function Home() {
                 >
                   <div
                     className={`flex ${
-                      idx % 2 === 0 ? "justify-start" : "justify-end"
-                    }`}
+                      idx % 2 === 0 ? "lg:justify-start" : "lg:justify-end"
+                    } justify-center`} // Center in mobile, align in larger screens
                   >
-                    <div className="w-full md:w-1/2 p-6 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-zinc-100 dark:border-zinc-700">
-                      <h3 className="font-heading text-2xl font-semibold text-emerald-500 mb-4">
+                    <div className="w-full md:w-3/4 lg:w-1/2 p-6 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-zinc-100 dark:border-zinc-700">
+                      <h3 className="font-heading text-2xl font-semibold text-emerald-500 mb-4 text-center lg:text-left">
                         {group.title}
                       </h3>
                       <ul className="font-body space-y-3 text-zinc-600 dark:text-zinc-300">
@@ -324,7 +373,7 @@ export default function Home() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <h2 className="text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-12">
             Technical Expertise
           </h2>
@@ -348,24 +397,12 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Contact Section */}
+      {/* Contact Section - To be added later if needed */}
 
       {/* Footer */}
       <footer className="bg-zinc-800 text-zinc-300 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="mb-4">© 2025 Raphael Bautista</p>
-          <div className="flex justify-center space-x-6">
-            {[CodeBracketIcon, UserIcon, EnvelopeIcon].map((Icon, idx) => (
-              <motion.a
-                key={idx}
-                whileHover={{ scale: 1.2 }}
-                className="p-2 hover:text-emerald-500 transition-colors"
-                href="#"
-              >
-                <Icon className="h-6 w-6" />
-              </motion.a>
-            ))}
-          </div>
         </div>
       </footer>
     </div>
