@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import { useState, useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
+import { image } from "motion/react-client";
 
 const MotionSocialIcon = motion(SocialIcon);
 
@@ -81,40 +82,29 @@ export default function Home() {
 
   const projects = [
     {
-      title: "Self-Hosted Homelab Environment",
-      description: "Built and maintained a virtualized homelab...",
-      techStack: ["Proxmox VE", "Ansible", "Docker", "Nginx", "Grafana"],
-    },
-    {
       title: "Personal Portfolio Website",
-      description: "Designed and developed a responsive...",
-      techStack: [
-        "Next.js",
-        "Tailwind CSS",
-        "Node.js",
-        "Docker",
-        "Nginx",
-        "Proxmox VE",
-      ],
+      description:
+        "Developed a responsive portfolio using Next.js and Tailwind CSS, deployed via Azure Static Web Apps with CI/CD.",
+      techStack: ["Next.js", "Tailwind CSS", "Node.js", "Azure", "Github"],
     },
   ];
 
   const skills = {
     it: [
-      { name: "VMware", image: "/images/vmware-icon.png" },
-      { name: "Proxmox VE", image: "/images/proxmox-icon.png" },
-      { name: "Ansible", image: "/images/ansible-icon.png" },
-      { name: "Docker", image: "/images/docker-icon.png" },
-      { name: "Nginx", image: "/images/nginx-icon.png" },
-      { name: "Windows Server", image: "/images/windows-server-icon.png" },
+      { name: "Windows", image: "images/windows-logo.png" },
+      { name: "MacOS", image: "/images/macos-logo.png" },
+      { name: "Linux", image: "/images/linux-logo.png" },
+      { name: "Azure", image: "/images/azure-logo.png" },
+      { name: "Jira", image: "/images/jirasvcmgmt-logo.png" },
+      { name: "Zendesk", image: "/images/zendesk-logo.png" },
+      { name: "Powershell", image: "/images/powershell-logo.png" },
     ],
     developer: [
-      { name: "React/Next.js", image: "/images/react-icon.png" },
-      { name: "JavaScript/TypeScript", image: "/images/typescript-icon.png" },
-      { name: "Node.js", image: "/images/nodejs-icon.png" },
-      { name: "Tailwind CSS", image: "/images/tailwind-icon.png" },
-      { name: "Python", image: "/images/python-icon.png" },
-      { name: "Linux Administration", image: "/images/linux-icon.png" },
+      { name: "Git", image: "/images/git-logo.png" },
+      { name: "Visual Studio Code", image: "/images/vscode-logo.png" },
+      { name: "HTML5", image: "/images/html5-logo.png" },
+      { name: "Tailwind CSS", image: "/images/tailwind-logo.png" },
+      { name: "NextJS", image: "/images/nextjs-logo.png" },
     ],
   };
 
@@ -188,7 +178,7 @@ export default function Home() {
             <img
               src="avatar.png"
               alt="Raphael Bautista"
-              className="w-64 h-64 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-emerald-500 shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="w-64 h-64 lg:w-96 lg:h-96 rounded-full object-cover shadow-xl hover:shadow-2xl transition-all duration-300"
             />
           </motion.div>
 
@@ -273,7 +263,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-12"
           >
-            Featured Projects
+            Projects
           </motion.h2>
 
           <motion.div
@@ -380,14 +370,8 @@ export default function Home() {
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <SkillsCard
-              title="IT Infrastructure & Operations"
-              skills={skills.it}
-            />
-            <SkillsCard
-              title="Development & Automation"
-              skills={skills.developer}
-            />
+            <SkillsCard title="IT Operations" skills={skills.it} />
+            <SkillsCard title="Development Tools" skills={skills.developer} />
           </motion.div>
         </div>
       </motion.section>
@@ -397,7 +381,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-zinc-800 text-zinc-300 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="mb-4">© 2025 Raphael Bautista</p>
+          <p className="mb-4">© {new Date().getFullYear()} Raphael Bautista</p>
         </div>
       </footer>
     </div>

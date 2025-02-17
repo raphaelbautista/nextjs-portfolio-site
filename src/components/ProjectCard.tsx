@@ -16,7 +16,7 @@ const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
     {/* Image Container */}
     <div className="relative h-64 overflow-hidden">
       <motion.img
-        src="/project-placeholder.jpg" // Replace with your image path
+        src="/images/portfolio-image.png" // Replace with your image path
         alt={title}
         className="w-full h-full object-cover"
         variants={{
@@ -64,7 +64,9 @@ const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
           </span>
         </a>
         <a
-          href="#"
+          href="https://github.com/raphaelbautista/nextjs-portfolio-site"
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-body text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
         >
           GitHub Repo
