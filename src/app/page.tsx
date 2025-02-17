@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import { useState, useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
-import { image } from "motion/react-client";
 
 const MotionSocialIcon = motion(SocialIcon);
 
