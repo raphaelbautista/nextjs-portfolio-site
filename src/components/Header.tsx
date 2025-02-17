@@ -158,14 +158,11 @@ const NavLinks = ({
     <NavLink href="#projects" scrolled={scrolled}>
       Projects
     </NavLink>
-    <NavLink href="#skills" scrolled={scrolled}>
-      Skills
-    </NavLink>
     <NavLink href="#roadmap" scrolled={scrolled}>
       Roadmap
     </NavLink>
-    <NavLink href="#contact" scrolled={scrolled}>
-      Contact
+    <NavLink href="#skills" scrolled={scrolled}>
+      Skills
     </NavLink>
   </div>
 );
@@ -321,7 +318,7 @@ const MoonIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-5 w-5 text-zinc-800 dark:text-zinc-200"
-    fill="none"
+    fill="currentColor"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
