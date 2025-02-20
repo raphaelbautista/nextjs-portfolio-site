@@ -164,6 +164,9 @@ const NavLinks = ({
     <NavLink href="#skills" scrolled={scrolled}>
       Skills
     </NavLink>
+    <NavLink href="#achievements" scrolled={scrolled}>
+      Achievements
+    </NavLink>
   </div>
 );
 
