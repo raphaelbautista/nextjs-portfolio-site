@@ -6,7 +6,7 @@ export interface Achievement {
   description: string;
   date: string;
   image?: string;
-  type?: "certification" | "award";
+  type: "certification" | "award";
 }
 
 interface AchievementCardProps {

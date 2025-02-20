@@ -1,13 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
+  // Detect portrait orientation
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsPortrait(window.innerWidth < window.innerHeight);
+    };
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+    return () => window.removeEventListener("resize", checkOrientation);
+  }, []);
+
+  // Theme setup
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as
       | "system"
@@ -16,18 +29,17 @@ export default function Header() {
     const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
       setTheme("system");
     }
-
     if (savedTheme === "dark" || (savedTheme === "system" && systemDark)) {
       document.documentElement.classList.add("dark");
     }
   }, []);
 
+  // Listen for scroll to update header style
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -39,11 +51,9 @@ export default function Header() {
   const updateTheme = (selectedTheme: "system" | "light" | "dark") => {
     setTheme(selectedTheme);
     localStorage.setItem("theme", selectedTheme);
-
     const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-
     if (selectedTheme === "system") {
       if (systemDark) {
         document.documentElement.classList.add("dark");
@@ -56,7 +66,6 @@ export default function Header() {
         selectedTheme === "dark"
       );
     }
-
     setIsThemeMenuOpen(false);
   };
 
@@ -128,25 +137,46 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu (Collapsible) */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4">
-            <NavLinks scrolled={scrolled} isMobile />
-            <ThemeDropdown
-              theme={theme}
-              isThemeMenuOpen={isThemeMenuOpen}
-              setIsThemeMenuOpen={setIsThemeMenuOpen}
-              updateTheme={updateTheme}
-              scrolled={scrolled}
-              isMobile
-            />
-          </div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen &&
+            (isPortrait ? (
+              <motion.div
+                className="lg:hidden mt-4 overflow-hidden"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <NavLinks scrolled={scrolled} isMobile />
+                <ThemeDropdown
+                  theme={theme}
+                  isThemeMenuOpen={isThemeMenuOpen}
+                  setIsThemeMenuOpen={setIsThemeMenuOpen}
+                  updateTheme={updateTheme}
+                  scrolled={scrolled}
+                  isMobile
+                />
+              </motion.div>
+            ) : (
+              <div className="lg:hidden mt-4">
+                <NavLinks scrolled={scrolled} isMobile />
+                <ThemeDropdown
+                  theme={theme}
+                  isThemeMenuOpen={isThemeMenuOpen}
+                  setIsThemeMenuOpen={setIsThemeMenuOpen}
+                  updateTheme={updateTheme}
+                  scrolled={scrolled}
+                  isMobile
+                />
+              </div>
+            ))}
+        </AnimatePresence>
       </nav>
     </header>
   );
 }
 
-// NavLinks Component (Reusable for Desktop and Mobile)
+// Reusable NavLinks Component
 const NavLinks = ({
   scrolled,
   isMobile = false,
@@ -170,7 +200,7 @@ const NavLinks = ({
   </div>
 );
 
-// ThemeDropdown Component (Reusable for Desktop and Mobile)
+// Reusable ThemeDropdown Component
 const ThemeDropdown = ({
   theme,
   isThemeMenuOpen,
@@ -251,6 +281,22 @@ interface NavLinkProps {
   scrolled: boolean;
 }
 
+const NavLink: React.FC<NavLinkProps> = ({ href, children, scrolled }) => (
+  <Link
+    href={href}
+    className={`font-body text-sm font-medium px-3 py-2 rounded-lg transition-all duration-300
+      ${
+        scrolled
+          ? "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+      }
+      relative after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-px 
+      after:bg-emerald-500 after:transition-all after:duration-300 hover:after:w-full`}
+  >
+    {children}
+  </Link>
+);
+
 const CheckIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -283,23 +329,6 @@ const SystemIcon = () => (
   </svg>
 );
 
-const NavLink: React.FC<NavLinkProps> = ({ href, children, scrolled }) => (
-  <Link
-    href={href}
-    className={`font-body text-sm font-medium px-3 py-2 rounded-lg transition-all duration-300
-      ${
-        scrolled
-          ? "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-      }
-      relative after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-px 
-      after:bg-emerald-500 after:transition-all after:duration-300 hover:after:w-full`}
-  >
-    {children}
-  </Link>
-);
-
-// Updated icons to match color scheme
 const SunIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
 import AchievementCard from "./AchievementsCard";
 import { containerVariants, itemVariants } from "./utils/animations";
-
-const achievements = [
+import { Achievement } from "./AchievementsCard";
+const achievements: Achievement[] = [
   {
     title: "CompTIA A+",
     description: "Certified in 2023",
     date: "2023",
     image: "/images/comptia-a-plus.png",
     type: "certification",
-  },
+  } as Achievement,
   {
     title: "Employee of the Month",
     description: "Awarded by Company X",
     date: "2022",
     type: "award",
-  },
+  } as Achievement,
 ];
 
 export default function AchievementsSection() {
