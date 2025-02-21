@@ -16,17 +16,15 @@ export default function RoadmapSection() {
             {
               title: "Short-term Goals",
               items: [
-                "Complete Comptia A+, AZ-900, and MS-900",
-                "Secure Systems Administrator/DevOps role",
-                "Contribute to open-source",
+                "Acquire Foundational Certifications: CompTIA A+, ITIL Foundation, AZ-900, MS-900",
+                "Setup an HomeLab environment",
               ],
             },
             {
-              title: "Long-term Goals",
+              title: "Mid-term Goals",
               items: [
-                "AWS Certified DevOps Engineer - Professional",
-                "Transition to DevOps role",
-                "Start tech blog/YouTube channel",
+                "Acquire more vendor specific certifications like Microsoft Certified: Modern Desktop Administrator",
+                "Build an online presence through a blog or YouTube channel",
               ],
             },
           ].map((group, idx) => (

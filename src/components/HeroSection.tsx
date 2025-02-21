@@ -6,7 +6,7 @@ const MotionSocialIcon = motion(SocialIcon);
 
 const RotatingTypewriter = () => {
   const roles = useMemo(
-    () => ["Systems Administrator", "DevOps Enthusiast", "Web Development"],
+    () => ["Systems Administration", "Web Development"],
     []
   );
 

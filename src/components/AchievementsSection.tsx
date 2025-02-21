@@ -4,17 +4,11 @@ import { containerVariants, itemVariants } from "./utils/animations";
 import { Achievement } from "./AchievementsCard";
 const achievements: Achievement[] = [
   {
-    title: "CompTIA A+",
-    description: "Certified in 2023",
-    date: "2023",
-    image: "/images/comptia-a-plus.png",
+    title: "Google IT Support Professional Certificate",
+    description: "Certified in 2025",
+    date: "2025",
+    image: "/images/google-it-support.png",
     type: "certification",
-  } as Achievement,
-  {
-    title: "Employee of the Month",
-    description: "Awarded by Company X",
-    date: "2022",
-    type: "award",
   } as Achievement,
 ];
 
