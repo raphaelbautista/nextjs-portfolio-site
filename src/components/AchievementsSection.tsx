@@ -10,6 +10,20 @@ const achievements: Achievement[] = [
     image: "/images/google-it-support.png",
     type: "certification",
   } as Achievement,
+  {
+    title: "Microsoft 365 Certified: Fundamentals (MS-900)",
+    description: "Ongoing, expected completion in 2025",
+    date: "2025",
+    image: "/images/ms-900.webp",
+    type: "certification",
+  } as Achievement,
+  {
+    title: "Microsoft Certified: Azure Fundamentals (AZ-900)",
+    description: "Ongoing, expected completion in 2025",
+    date: "2025",
+    image: "/images/az-900.png",
+    type: "certification",
+  } as Achievement,
 ];
 
 export default function AchievementsSection() {

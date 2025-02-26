@@ -1,26 +1,15 @@
-import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isPortrait, setIsPortrait] = useState(false);
 
-  // Detect portrait orientation
-  useEffect(() => {
-    const checkOrientation = () => {
-      setIsPortrait(window.innerWidth < window.innerHeight);
-    };
-    checkOrientation();
-    window.addEventListener("resize", checkOrientation);
-    return () => window.removeEventListener("resize", checkOrientation);
-  }, []);
-
-  // Theme setup
+  // Theme setup and system theme listener
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as
       | "system"
@@ -29,21 +18,36 @@ export default function Header() {
     const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("system");
-    }
-    if (savedTheme === "dark" || (savedTheme === "system" && systemDark)) {
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+
+    // Set initial theme from localStorage or default to "system"
+    const initialTheme = savedTheme || "system";
+    setTheme(initialTheme);
+
+    // Apply theme on load
+    const applyTheme = (selectedTheme: "system" | "light" | "dark") => {
+      document.documentElement.classList.toggle(
+        "dark",
+        selectedTheme === "dark" || (selectedTheme === "system" && systemDark)
+      );
+    };
+    applyTheme(initialTheme);
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      if (theme === "system") {
+        document.documentElement.classList.toggle("dark", e.matches);
+      }
+    };
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () =>
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+  }, [theme]);
 
   // Listen for scroll to update header style
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -54,32 +58,12 @@ export default function Header() {
     const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-    if (selectedTheme === "system") {
-      if (systemDark) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    } else {
-      document.documentElement.classList.toggle(
-        "dark",
-        selectedTheme === "dark"
-      );
-    }
+    document.documentElement.classList.toggle(
+      "dark",
+      selectedTheme === "dark" || (selectedTheme === "system" && systemDark)
+    );
     setIsThemeMenuOpen(false);
   };
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-      if (theme === "system") {
-        document.documentElement.classList.toggle("dark", e.matches);
-      }
-    };
-    mediaQuery.addEventListener("change", handleSystemThemeChange);
-    return () =>
-      mediaQuery.removeEventListener("change", handleSystemThemeChange);
-  }, [theme]);
 
   return (
     <header
@@ -91,7 +75,7 @@ export default function Header() {
     >
       <nav className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          {/* Logo and Name */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <Image
               src={theme === "dark" ? "/logo-light.png" : "/logo-dark.png"}
@@ -123,7 +107,7 @@ export default function Header() {
             </svg>
           </button>
 
-          {/* Navigation Links and Theme Dropdown (Desktop) */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex gap-5 items-center">
             <NavLinks scrolled={scrolled} />
             <ThemeDropdown
@@ -138,38 +122,25 @@ export default function Header() {
 
         {/* Mobile Menu (Collapsible) */}
         <AnimatePresence>
-          {isMobileMenuOpen &&
-            (isPortrait ? (
-              <motion.div
-                className="lg:hidden mt-4 overflow-hidden"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <NavLinks scrolled={scrolled} isMobile />
-                <ThemeDropdown
-                  theme={theme}
-                  isThemeMenuOpen={isThemeMenuOpen}
-                  setIsThemeMenuOpen={setIsThemeMenuOpen}
-                  updateTheme={updateTheme}
-                  scrolled={scrolled}
-                  isMobile
-                />
-              </motion.div>
-            ) : (
-              <div className="lg:hidden mt-4">
-                <NavLinks scrolled={scrolled} isMobile />
-                <ThemeDropdown
-                  theme={theme}
-                  isThemeMenuOpen={isThemeMenuOpen}
-                  setIsThemeMenuOpen={setIsThemeMenuOpen}
-                  updateTheme={updateTheme}
-                  scrolled={scrolled}
-                  isMobile
-                />
-              </div>
-            ))}
+          {isMobileMenuOpen && (
+            <motion.div
+              className="lg:hidden mt-4 overflow-hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <NavLinks scrolled={scrolled} isMobile />
+              <ThemeDropdown
+                theme={theme}
+                isThemeMenuOpen={isThemeMenuOpen}
+                setIsThemeMenuOpen={setIsThemeMenuOpen}
+                updateTheme={updateTheme}
+                scrolled={scrolled}
+                isMobile
+              />
+            </motion.div>
+          )}
         </AnimatePresence>
       </nav>
     </header>

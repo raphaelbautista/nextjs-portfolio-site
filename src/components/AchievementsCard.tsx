@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { FaCertificate, FaTrophy } from "react-icons/fa";
+import Image from "next/image"; // Import Image from next/image
 
 export interface Achievement {
   title: string;
@@ -25,10 +26,12 @@ const AchievementsCard: FC<AchievementCardProps> = ({ achievement }) => {
   return (
     <div className="p-4 bg-white dark:bg-zinc-800 rounded-lg shadow border border-zinc-100 dark:border-zinc-700">
       {image ? (
-        <img
+        <Image
           src={image}
           alt={title}
-          className="w-12 h-12 mb-2 object-contain"
+          width={48} // Set explicit width (matches w-12, 12 * 4 = 48px)
+          height={48} // Set explicit height (matches h-12, 12 * 4 = 48px)
+          className="mb-2 object-contain"
         />
       ) : (
         IconComponent && (
