@@ -7,7 +7,7 @@ Styling: [Tailwind CSS / Framer Motion]
 Language: TypeScript
 
 🚀 Live Demo
-Check out the live site here: https://polite-cliff-070d9931e.4.azurestaticapps.net/
+Check out the live site here: raphaelbautista.site
 
 🙌 Acknowledgments
 Next.js Documentation
