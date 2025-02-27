@@ -4,46 +4,31 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Header() {
-  const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
-  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light"); // Default to light, will be overridden by system pref
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Theme setup and system theme listener
+  // Theme setup based on system preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as
-      | "system"
-      | "light"
-      | "dark";
     const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-
-    // Set initial theme from localStorage or default to "system"
-    const initialTheme = savedTheme || "system";
+    const initialTheme = systemDark ? "dark" : "light";
     setTheme(initialTheme);
-
-    // Apply theme on load
-    const applyTheme = (selectedTheme: "system" | "light" | "dark") => {
-      document.documentElement.classList.toggle(
-        "dark",
-        selectedTheme === "dark" || (selectedTheme === "system" && systemDark)
-      );
-    };
-    applyTheme(initialTheme);
+    document.documentElement.classList.toggle("dark", initialTheme === "dark");
 
     // Listen for system theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-      if (theme === "system") {
-        document.documentElement.classList.toggle("dark", e.matches);
-      }
+      const newTheme = e.matches ? "dark" : "light";
+      setTheme(newTheme);
+      document.documentElement.classList.toggle("dark", e.matches);
     };
     mediaQuery.addEventListener("change", handleSystemThemeChange);
 
     return () =>
       mediaQuery.removeEventListener("change", handleSystemThemeChange);
-  }, [theme]);
+  }, []);
 
   // Listen for scroll to update header style
   useEffect(() => {
@@ -52,17 +37,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const updateTheme = (selectedTheme: "system" | "light" | "dark") => {
-    setTheme(selectedTheme);
-    localStorage.setItem("theme", selectedTheme);
-    const systemDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    document.documentElement.classList.toggle(
-      "dark",
-      selectedTheme === "dark" || (selectedTheme === "system" && systemDark)
-    );
-    setIsThemeMenuOpen(false);
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   return (
@@ -110,13 +88,19 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex gap-5 items-center">
             <NavLinks scrolled={scrolled} />
-            <ThemeDropdown
-              theme={theme}
-              isThemeMenuOpen={isThemeMenuOpen}
-              setIsThemeMenuOpen={setIsThemeMenuOpen}
-              updateTheme={updateTheme}
-              scrolled={scrolled}
-            />
+            <button
+              onClick={toggleTheme}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                scrolled
+                  ? "bg-zinc-100 dark:bg-zinc-800"
+                  : "bg-zinc-100/80 dark:bg-zinc-800/50"
+              } hover:bg-zinc-200 dark:hover:bg-zinc-700`}
+            >
+              {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+              <span className="text-sm font-medium font-body text-zinc-800 dark:text-zinc-200">
+                {theme === "dark" ? "Light" : "Dark"}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -130,15 +114,20 @@ export default function Header() {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <NavLinks scrolled={scrolled} isMobile />
-              <ThemeDropdown
-                theme={theme}
-                isThemeMenuOpen={isThemeMenuOpen}
-                setIsThemeMenuOpen={setIsThemeMenuOpen}
-                updateTheme={updateTheme}
+              <NavLinks
                 scrolled={scrolled}
                 isMobile
+                closeMenu={() => setIsMobileMenuOpen(false)}
               />
+              <button
+                onClick={toggleTheme}
+                className="mt-4 flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 bg-zinc-100/80 dark:bg-zinc-800/50 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+              >
+                {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                <span className="text-sm font-medium font-body text-zinc-800 dark:text-zinc-200">
+                  {theme === "dark" ? "Light" : "Dark"}
+                </span>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -151,98 +140,25 @@ export default function Header() {
 const NavLinks = ({
   scrolled,
   isMobile = false,
+  closeMenu,
 }: {
   scrolled: boolean;
   isMobile?: boolean;
+  closeMenu?: () => void;
 }) => (
   <div className={`flex ${isMobile ? "flex-col gap-3" : "gap-5"}`}>
-    <NavLink href="#projects" scrolled={scrolled}>
+    <NavLink href="#projects" scrolled={scrolled} onClick={closeMenu}>
       Projects
     </NavLink>
-    <NavLink href="#roadmap" scrolled={scrolled}>
+    <NavLink href="#roadmap" scrolled={scrolled} onClick={closeMenu}>
       Roadmap
     </NavLink>
-    <NavLink href="#skills" scrolled={scrolled}>
+    <NavLink href="#skills" scrolled={scrolled} onClick={closeMenu}>
       Skills
     </NavLink>
-    <NavLink href="#achievements" scrolled={scrolled}>
+    <NavLink href="#achievements" scrolled={scrolled} onClick={closeMenu}>
       Achievements
     </NavLink>
-  </div>
-);
-
-// Reusable ThemeDropdown Component
-const ThemeDropdown = ({
-  theme,
-  isThemeMenuOpen,
-  setIsThemeMenuOpen,
-  updateTheme,
-  scrolled,
-  isMobile = false,
-}: {
-  theme: "system" | "light" | "dark";
-  isThemeMenuOpen: boolean;
-  setIsThemeMenuOpen: (open: boolean) => void;
-  updateTheme: (theme: "system" | "light" | "dark") => void;
-  scrolled: boolean;
-  isMobile?: boolean;
-}) => (
-  <div className={`relative ${isMobile ? "mt-4" : ""}`}>
-    <button
-      onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
-      onBlur={() => setTimeout(() => setIsThemeMenuOpen(false), 100)}
-      className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-        scrolled
-          ? "bg-zinc-100 dark:bg-zinc-800"
-          : "bg-zinc-100/80 dark:bg-zinc-800/50"
-      } hover:bg-zinc-200 dark:hover:bg-zinc-700`}
-    >
-      {theme === "dark" ? (
-        <MoonIcon />
-      ) : theme === "light" ? (
-        <SunIcon />
-      ) : (
-        <SystemIcon />
-      )}
-      <span className="text-sm font-medium font-body text-zinc-800 dark:text-zinc-200">
-        Theme
-      </span>
-    </button>
-
-    {isThemeMenuOpen && (
-      <div
-        className={`absolute ${
-          isMobile ? "left-0" : "right-0"
-        } mt-2 w-48 origin-top-right rounded-lg bg-zinc-100 dark:bg-zinc-800 shadow-lg ring-1 ring-zinc-900/5 dark:ring-zinc-700 focus:outline-none`}
-      >
-        <div className="p-2 space-y-1">
-          <button
-            onClick={() => updateTheme("system")}
-            className="flex w-full items-center gap-2 rounded-md px-3 font-body py-2 text-sm text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700"
-          >
-            <SystemIcon />
-            System
-            {theme === "system" && <CheckIcon />}
-          </button>
-          <button
-            onClick={() => updateTheme("light")}
-            className="flex w-full items-center gap-2 font-body rounded-md px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700"
-          >
-            <SunIcon />
-            Light
-            {theme === "light" && <CheckIcon />}
-          </button>
-          <button
-            onClick={() => updateTheme("dark")}
-            className="flex w-full items-center gap-2 font-body rounded-md px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700"
-          >
-            <MoonIcon />
-            Dark
-            {theme === "dark" && <CheckIcon />}
-          </button>
-        </div>
-      </div>
-    )}
   </div>
 );
 
@@ -250,9 +166,15 @@ interface NavLinkProps {
   href: string;
   children: React.ReactNode;
   scrolled: boolean;
+  onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, children, scrolled }) => (
+const NavLink: React.FC<NavLinkProps> = ({
+  href,
+  children,
+  scrolled,
+  onClick,
+}) => (
   <Link
     href={href}
     className={`font-body text-sm font-medium px-3 py-2 rounded-lg transition-all duration-300
@@ -263,41 +185,10 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children, scrolled }) => (
       }
       relative after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-px 
       after:bg-emerald-500 after:transition-all after:duration-300 hover:after:w-full`}
+    onClick={onClick}
   >
     {children}
   </Link>
-);
-
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="ml-auto h-5 w-5 text-emerald-500"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
-
-const SystemIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5 text-zinc-800 dark:text-zinc-200"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    />
-  </svg>
 );
 
 const SunIcon = () => (

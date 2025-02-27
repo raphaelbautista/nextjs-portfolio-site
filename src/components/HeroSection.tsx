@@ -1,14 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useMemo } from "react";
 import { SocialIcon } from "react-social-icons";
+import Image from "next/image";
 
 const MotionSocialIcon = motion(SocialIcon);
 
 const RotatingTypewriter = () => {
-  const roles = useMemo(
-    () => ["Systems Administration", "Web Development"],
-    []
-  );
+  const roles = useMemo(() => ["Technical Support", "Web Development"], []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -45,7 +43,7 @@ const RotatingTypewriter = () => {
   return (
     <div className="inline-flex items-center h-8">
       <span className="font-body text-xl text-zinc-600 dark:text-zinc-400 font-medium">
-        {currentText}
+        {currentText || "\u00A0"}
       </span>
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
@@ -76,10 +74,12 @@ const HeroSection = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <img
+          <Image
             src="/avatar.png"
             alt="Raphael Bautista"
-            className="w-64 h-64 lg:w-96 lg:h-96 rounded-full object-cover shadow-xl hover:shadow-2xl transition-all duration-300"
+            width={256} // Corresponds to w-64 (64 * 4px = 256px)
+            height={256} // Corresponds to h-64 (64 * 4px = 256px)
+            className="rounded-full object-cover shadow-xl hover:shadow-2xl transition-all duration-300 lg:w-96 lg:h-96"
           />
         </motion.div>
 
@@ -149,9 +149,10 @@ const HeroSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-emerald-500 text-white px-8 py-3 font-body rounded-lg w-fit shadow-md hover:bg-emerald-600 transition-colors mt-6"
-            href="#projects"
+            href="/assets/Raphael_Bautista_CV.pdf" // Path to your CV in the public directory
+            download="Raphael_Bautista_CV.pdf" // Ensures the file downloads with this name
           >
-            View My Work
+            Download CV
           </motion.a>
         </motion.div>
       </div>
