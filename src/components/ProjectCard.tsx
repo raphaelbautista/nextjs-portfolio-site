@@ -4,10 +4,19 @@ interface ProjectCardProps {
   title: string;
   description: string;
   techStack: string[];
+  imageSrc?: string; // Optional: for different images per card
+  demoLink?: string; // Optional: for the demo link
+  repoLink?: string; // Optional: for the GitHub repo link
 }
 
-// Update your ProjectCard component
-const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
+const ProjectCard = ({
+  title,
+  description,
+  techStack,
+  imageSrc = "/images/portfolio-image.png", // Default image
+  demoLink = "#", // Default demo link
+  repoLink = "https://github.com/raphaelbautista/nextjs-portfolio-site", // Default repo link
+}: ProjectCardProps) => (
   <motion.div
     className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     whileHover="hover"
@@ -16,7 +25,7 @@ const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
     {/* Image Container */}
     <div className="relative h-64 overflow-hidden">
       <motion.img
-        src="/images/portfolio-image.png" // Replace with your image path
+        src={imageSrc}
         alt={title}
         className="w-full h-full object-cover"
         variants={{
@@ -55,7 +64,7 @@ const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
       </p>
       <div className="flex gap-4 border-t border-zinc-100 dark:border-zinc-700 pt-4">
         <a
-          href="#"
+          href={demoLink}
           className="font-body text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5 group/link"
         >
           <span>View Demo</span>
@@ -64,7 +73,7 @@ const ProjectCard = ({ title, description, techStack }: ProjectCardProps) => (
           </span>
         </a>
         <a
-          href="https://github.com/raphaelbautista/nextjs-portfolio-site"
+          href={repoLink}
           target="_blank"
           rel="noopener noreferrer"
           className="font-body text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
