@@ -6,6 +6,7 @@ import RoadmapSection from "@/components/RoadmapSection";
 import SkillsSection from "@/components/SkillsSection";
 import AchievementSection from "@/components/AchievementsSection";
 import FooterSection from "@/components/FooterSection";
+import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <RoadmapSection />
       <SkillsSection />
       <AchievementSection />
+      <ContactSection />
       <FooterSection />
     </div>
   );

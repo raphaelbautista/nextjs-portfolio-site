@@ -6,7 +6,7 @@ import Image from "next/image";
 const MotionSocialIcon = motion(SocialIcon);
 
 const RotatingTypewriter = () => {
-  const roles = useMemo(() => ["Technical Support", "Web Development"], []);
+  const roles = useMemo(() => ["IT Systems Specialist", "Web Development"], []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
