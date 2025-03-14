@@ -16,9 +16,27 @@ const projects = [
       "CI/CD",
       "AI Assisted Development",
     ],
-    demoLink: "https://your-portfolio-demo.com", // Replace with actual demo link
-    repoLink: "https://github.com/raphaelbautista/nextjs-portfolio-site", // Your existing repo link
-    imageSrc: "/images/portfolio-image.png", // Replace with actual image path if different
+    demoLink: "https://your-portfolio-demo.com",
+    repoLink: "https://github.com/raphaelbautista/nextjs-portfolio-site",
+    imageSrc: "/images/portfolio-image.png",
+  },
+  {
+    title: "Home Server Setup with Jellyfin and File Sharing",
+    description:
+      "Configured a headless MacBook Air M1 as a home server for media streaming and file sharing with Jellyfin and Pi-hole. Enabled SSH for remote access and automated startup.",
+    techStack: [
+      "SMB",
+      "Docker",
+      "Jellyfin",
+      "Pi-hole",
+      "SSH",
+      "Networking",
+      "File Sharing",
+      "MacOS",
+    ],
+    demoLink: "",
+    repoLink: "",
+    imageSrc: "/images/ssh.png", // Add a screenshot of Jellyfin or terminal
   },
   {
     title: "Company Knowledgebase Chatbot (Ongoing)",
@@ -34,9 +52,9 @@ const projects = [
       "AI Assisted Development",
       "Chatbot",
     ],
-    demoLink: "https://chatbot-demo.com", // Replace with actual demo link or use "#" if not available
-    repoLink: "https://github.com/raphaelbautista/chatbot-project", // Replace with actual repo link
-    imageSrc: "/images/chatbot-image.jpg", // Replace with actual image path
+    demoLink: "",
+    repoLink: "",
+    imageSrc: "/images/chatbot-image.jpg",
   },
 ];
 
