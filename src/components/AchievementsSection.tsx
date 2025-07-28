@@ -3,18 +3,11 @@ import AchievementCard from "./AchievementsCard";
 import { containerVariants, itemVariants } from "./utils/animations";
 import { Achievement } from "./AchievementsCard";
 const achievements: Achievement[] = [
-  {
-    title: "Google IT Support Professional Certificate",
-    description: "Certified in 2025",
-    date: "2025",
-    image: "/images/google-it-support.png",
-    type: "certification",
-  } as Achievement,
-  {
+{
     title: "Microsoft 365 Certified: Fundamentals (MS-900)",
-    description: "Ongoing, expected completion in 2025",
+    description: "Earned on April, 2025",
     date: "2025",
-    image: "/images/ms-900.webp",
+    image: "/images/ms900.png",
     type: "certification",
   } as Achievement,
   {

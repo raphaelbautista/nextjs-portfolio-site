@@ -67,7 +67,7 @@ const ProjectCard = ({
           href={demoLink}
           className="font-body text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5 group/link"
         >
-          <span>View Demo</span>
+          <span>Request Demo</span>
           <span className="group-hover/link:translate-x-1 transition-transform">
             →
           </span>
@@ -78,7 +78,7 @@ const ProjectCard = ({
           rel="noopener noreferrer"
           className="font-body text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
         >
-          GitHub Repo
+          ㅤ
         </a>
       </div>
     </div>

@@ -16,29 +16,61 @@ const projects = [
       "CI/CD",
       "AI Assisted Development",
     ],
-    demoLink: "https://your-portfolio-demo.com", // Replace with actual demo link
+    demoLink: "raphaelbautista.site", // Replace with actual demo link
     repoLink: "https://github.com/raphaelbautista/nextjs-portfolio-site", // Your existing repo link
     imageSrc: "/images/portfolio-image.png", // Replace with actual image path if different
   },
-  {
-    title: "Company Knowledgebase Chatbot (Ongoing)",
+    {
+    title: "Home Server Setup with Jellyfin and File Sharing",
     description:
-      "Developing a chatbot integrated with a company knowledgebase, being built with Next.js and deployed on Azure.",
+      "Configured a headless MacBook Air M1 as a home server for media streaming and file sharing with Jellyfin and Pi-hole. Enabled SSH for remote access and automated startup.",
+    techStack: [
+      "SMB",
+      "Docker",
+      "Jellyfin",
+      "Pi-hole",
+      "SSH",
+      "Networking",
+      "File Sharing",
+      "MacOS"
+    ],
+    demoLink: "https://your-portfolio-demo.com", // Replace with actual demo link
+    repoLink: "https://github.com/raphaelbautista/nextjs-portfolio-site", // Your existing repo link
+    imageSrc: "/images/ssh.png", // Replace with actual image path if different
+  },
+  {
+    title: "Valheim Dedicated Server hosted via Azure Virtual Machine",
+    description:
+      "Set up a dedicated Valheim server on Azure VM, enabling multiplayer gaming with friends.",
+    techStack: [
+      "Azure",
+      "Azure Virtual Machine",
+      "Networking",
+      "Windows Server",
+    ],
+    demoLink: "https://your-valheim-demo.com", // Replace with actual demo link
+    repoLink: "1", // No repo link for this project
+    imageSrc: "/images/valheim.png", // Replace with actual image path if different
+  },
+  {
+    title: "Web Based Expenses Tracker",
+    description:
+      "Created a web-based expenses tracker using Next.js, Tailwind CSS, and Node.js. Deployed using Azure Static Web Apps with working Azure Cosmos DB integration. Originally for usage for me and my girlfriend.",
     techStack: [
       "Next.js",
       "Tailwind CSS",
       "Node.js",
+      "React",
       "Azure",
+      "Azure Cosmos DB",
       "Github",
-      "CI/CD",
-      "AI Assisted Development",
-      "Chatbot",
     ],
-    demoLink: "https://chatbot-demo.com", // Replace with actual demo link or use "#" if not available
-    repoLink: "https://github.com/raphaelbautista/chatbot-project", // Replace with actual repo link
-    imageSrc: "/images/chatbot-image.jpg", // Replace with actual image path
+    demoLink: "https://kind-moss-097d0d200.2.azurestaticapps.net/?fbclid=IwY2xjawL0DpdleHRuA2FlbQIxMABicmlkETFRVUNDSGk5THFqbDdrQldQAR5LklpiU6fT_U1jvu8aUyaBvB7lTGYkMIY2FJ5oh3sow2vbEjdAX6ER2XCFVw_aem_S-E6dDSXXJc4hLBANJPLHA", // Replace with actual demo link
+    repoLink: "1",
+    imageSrc: "/images/expensetracker.png", // Replace with actual image path if different
   },
-];
+
+];  
 
 const ProjectsSection = () => {
   return (
