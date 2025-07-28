@@ -11,6 +11,7 @@ const skills = {
     { name: "Jira", image: "/images/jirasvcmgmt-logo.png" },
     { name: "Zendesk", image: "/images/zendesk-logo.png" },
     { name: "Powershell", image: "/images/powershell-logo.png" },
+    { name: "Active Directory", image: "/images/ad.png" },
   ],
   developer: [
     { name: "Git", image: "/images/git-logo.png" },

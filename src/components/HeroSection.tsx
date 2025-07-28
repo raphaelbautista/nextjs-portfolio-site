@@ -7,7 +7,6 @@ const MotionSocialIcon = motion(SocialIcon);
 
 const RotatingTypewriter = () => {
   const roles = useMemo(() => ["IT Support Technician", "Vibe Coder"], []);
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
