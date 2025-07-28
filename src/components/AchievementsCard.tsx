@@ -29,8 +29,8 @@ const AchievementsCard: FC<AchievementCardProps> = ({ achievement }) => {
         <Image
           src={image}
           alt={title}
-          width={48} // Set explicit width (matches w-12, 12 * 4 = 48px)
-          height={48} // Set explicit height (matches h-12, 12 * 4 = 48px)
+          width={500} // Set explicit width (matches w-12, 12 * 4 = 48px)
+          height={250} // Set explicit height (matches h-12, 12 * 4 = 48px)
           className="mb-2 object-contain"
         />
       ) : (

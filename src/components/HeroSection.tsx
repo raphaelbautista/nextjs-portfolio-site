@@ -6,8 +6,7 @@ import Image from "next/image";
 const MotionSocialIcon = motion(SocialIcon);
 
 const RotatingTypewriter = () => {
-  const roles = useMemo(() => ["IT Systems Specialist", "Web Development"], []);
-
+  const roles = useMemo(() => ["IT Support Technician", "Vibe Coder"], []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -149,8 +148,8 @@ const HeroSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-emerald-500 text-white px-8 py-3 font-body rounded-lg w-fit shadow-md hover:bg-emerald-600 transition-colors mt-6"
-            href="/assets/Raphael_Bautista_CV.pdf" // Path to your CV in the public directory
-            download="Raphael_Bautista_CV.pdf" // Ensures the file downloads with this name
+            href="/assets/Raphael_Bautista_CV.pdf" 
+            download="Raphael_Bautista_CV.pdf" 
           >
             Download CV
           </motion.a>

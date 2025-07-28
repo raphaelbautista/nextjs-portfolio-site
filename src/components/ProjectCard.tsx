@@ -4,18 +4,18 @@ interface ProjectCardProps {
   title: string;
   description: string;
   techStack: string[];
-  imageSrc?: string;
-  demoLink?: string;
-  repoLink?: string;
+  imageSrc?: string; // Optional: for different images per card
+  demoLink?: string; // Optional: for the demo link
+  repoLink?: string; // Optional: for the GitHub repo link
 }
 
 const ProjectCard = ({
   title,
   description,
   techStack,
-  imageSrc = "/images/portfolio-image.png",
-  demoLink,
-  repoLink,
+  imageSrc = "/images/portfolio-image.png", // Default image
+  demoLink = "#", // Default demo link
+  repoLink = "https://github.com/raphaelbautista/nextjs-portfolio-site", // Default repo link
 }: ProjectCardProps) => (
   <motion.div
     className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -62,33 +62,25 @@ const ProjectCard = ({
       <p className="font-body text-zinc-600 dark:text-zinc-400 line-clamp-3 mb-4">
         {description}
       </p>
-
-      {/* Only render the links section if at least one link exists */}
-      {(demoLink || repoLink) && (
-        <div className="flex gap-4 border-t border-zinc-100 dark:border-zinc-700 pt-4">
-          {demoLink && (
-            <a
-              href={demoLink}
-              className="font-body text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5 group/link"
-            >
-              <span>View Demo</span>
-              <span className="group-hover/link:translate-x-1 transition-transform">
-                →
-              </span>
-            </a>
-          )}
-          {repoLink && (
-            <a
-              href={repoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-body text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-            >
-              GitHub Repo
-            </a>
-          )}
-        </div>
-      )}
+      <div className="flex gap-4 border-t border-zinc-100 dark:border-zinc-700 pt-4">
+        <a
+          href={demoLink}
+          className="font-body text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5 group/link"
+        >
+          <span>Request Demo</span>
+          <span className="group-hover/link:translate-x-1 transition-transform">
+            →
+          </span>
+        </a>
+        <a
+          href={repoLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
+        >
+          ㅤ
+        </a>
+      </div>
     </div>
   </motion.div>
 );
