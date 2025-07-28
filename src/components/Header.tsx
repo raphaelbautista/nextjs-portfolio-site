@@ -159,6 +159,9 @@ const NavLinks = ({
     <NavLink href="#achievements" scrolled={scrolled} onClick={closeMenu}>
       Achievements
     </NavLink>
+    <NavLink href="#contact" scrolled={scrolled} onClick={closeMenu}>
+      Contact
+    </NavLink>
   </div>
 );
 
